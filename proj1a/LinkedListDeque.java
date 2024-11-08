@@ -13,45 +13,45 @@ public class LinkedListDeque<T> {
     Node sentinel;
     int size;
 
-    public LinkedListDeque(){
+    public LinkedListDeque() {
        sentinel = new Node(null, null, null);
        sentinel.prev = sentinel;
        sentinel.next = sentinel;
        size = 0;
     }
 
-    public void addFirst(T item){
+    public void addFirst(T item) {
        Node first = new Node(item, sentinel, sentinel.next);
        sentinel.next = first;
        sentinel.next.prev = first;
        size++;
     }
 
-    public void addLast(T item){
+    public void addLast(T item) {
        Node last = new Node(item,sentinel.next,sentinel);
        sentinel.prev = last;
        sentinel.next.prev = last;
        size++;
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return size == 0;
       }//如果是错误的，会直接输出false，不需要写if，else了
 
-    public int size(){
+    public int size() {
         return size;
     }
 
-    public void printDeque(){
+    public void printDeque() {
        Node p = sentinel.next;
-       while(size != 0){
+       while(size != 0) {
            System.out.println(p.item + " ");
            p = p.next;
            size--;
        }
     }
 
-    public T removeFirst(){
+    public T removeFirst() {
         if(size == 0)
             return null;
         Node firstNode = sentinel.next;
@@ -63,7 +63,7 @@ public class LinkedListDeque<T> {
         return firstNode.item;
     }
 
-    public T removeLast(){
+    public T removeLast() {
        if(size == 0)
            return null;
        Node lastNode = sentinel.prev;
@@ -76,10 +76,10 @@ public class LinkedListDeque<T> {
     }
 
     //迭代
-    public T get(int index){
+    public T get(int index) {
       int t = index + 1;
       Node p = sentinel.next;
-      while(t!=0){
+      while(t!=0) {
           p = p.next;
           t--;
       }
@@ -87,11 +87,11 @@ public class LinkedListDeque<T> {
     }
 
     //递归
-    public T getRecursive(int index){
-       private T getRecursivehelper(Node current, int index){
+    public T getRecursive(int index) {
+       private T getRecursivehelper(Node current, int index) {
            current = sentinel.next;
            this.index = index;
-           if(index == 0){
+           if(index == 0) {
                return current.item;
            }
            return getRecursivehelper(current.next, index-1);
