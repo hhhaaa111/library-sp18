@@ -41,7 +41,7 @@ public class NBody{
     StdDraw.setXscale(-r,r);
     StdDraw.setYscale(-r,r);
     //StdDraw.enableDoubleBuffering();//启用双重缓冲调用
-    //draw beckgrounds
+    //draw backgrounds
     StdDraw.picture(0, 0, "images/starfield.jpg");
     //draw all the planets
     //for(Planet planet : planets)
@@ -54,7 +54,7 @@ public class NBody{
     //int num = planets.length;
     /* double[] xForces = new double[num];
     double[] yForces = new double[num]; */
-    while(t<=T){
+    while(t<T){
       double[] xForces = new double[num];
       double[] yForces = new double[num];
       for(int i =0; i<num; ++i){

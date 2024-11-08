@@ -27,24 +27,21 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      * Returns the index of the node to the left of the node at i.
      */
     private static int leftIndex(int i) {
-        /* TODO: Your code here! */
-        return 0;
+        return 2 * i;
     }
 
     /**
      * Returns the index of the node to the right of the node at i.
      */
     private static int rightIndex(int i) {
-        /* TODO: Your code here! */
-        return 0;
+        return 2 * i + 1;
     }
 
     /**
      * Returns the index of the node that is the parent of the node at i.
      */
     private static int parentIndex(int i) {
-        /* TODO: Your code here! */
-        return 0;
+        return i / 2;
     }
 
     /**
@@ -101,25 +98,43 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
 
 
     /**
-     * Bubbles up the node currently at the given index.
+     * Bubbles up the node currently at the given index.用于insert的时候排序
      */
     private void swim(int index) {
         // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
         validateSinkSwimArg(index);
 
-        /** TODO: Your code here. */
-        return;
+        //if( min(parentIndex(index),index) == parentIndex(index) ) return;
+        if( min(parentIndex(index),index) == index ){
+            if( index == 1){
+                return;
+            }
+            swap(parentIndex(index),index);
+            swim(parentIndex(index));
+        }
     }
 
     /**
-     * Bubbles down the node currently at the given index.
+     * Bubbles down the node currently at the given index.用于删除的时候排序
      */
     private void sink(int index) {
         // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
         validateSinkSwimArg(index);
 
-        /** TODO: Your code here. */
-        return;
+        int a = min(leftIndex(index),rightIndex(index));
+        if( min(a,index) == index ) return;
+        if(a == leftIndex(index)){
+        if( min(leftIndex(index),index) == leftIndex(index) ){
+            swap(leftIndex(index),index);
+            sink(leftIndex(index));
+         }
+        }
+        if( a == rightIndex(index)){
+            if( min(rightIndex(index),index) == rightIndex(index) ){
+                swap(rightIndex(index),index);
+                sink(rightIndex(index));
+            }
+        }
     }
 
     /**
@@ -132,8 +147,9 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         if (size + 1 == contents.length) {
             resize(contents.length * 2);
         }
-
-        /* TODO: Your code here! */
+        size = size + 1;
+        contents[size] = new Node(item, priority);
+        swim(size);
     }
 
     /**
@@ -142,8 +158,10 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     @Override
     public T peek() {
-        /* TODO: Your code here! */
-        return null;
+        if(size <= 0){
+            return null;
+        }
+        return contents[1].myItem;
     }
 
     /**
@@ -157,8 +175,18 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     @Override
     public T removeMin() {
-        /* TODO: Your code here! */
-        return null;
+        if(size == 0){
+            return null;
+        }
+        T a = peek();
+        swap(1,size);
+        contents[size] = null;
+        size = size - 1;
+        if( size == 0){
+            return null;
+        }
+        sink(1);
+        return a;
     }
 
     /**
@@ -180,8 +208,20 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     @Override
     public void changePriority(T item, double priority) {
-        /* TODO: Your code here! */
-        return;
+        int left = 1;
+        int right = size;
+        while(left <= right){
+            int mid = (left + right)/2;
+            if( item.equals(contents[mid].myItem)){
+                contents[mid].myPriority = priority;
+            }else if( contents[mid].myPriority < priority){
+                left = mid + 1;
+            }else{
+                right = mid - 1;
+            }
+        }
+        contents[size+1] = new Node(item, priority);
+        swim(size+1);
     }
 
     /**

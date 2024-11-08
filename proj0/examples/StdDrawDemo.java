@@ -41,7 +41,7 @@ public class StdDrawDemo {
 		int count = 0;
 		while (count < 200) {
 			/* picks random x and y between -90 and 90 */
-			double x = StdRandom.uniform(-90, 90);
+			double x = StdRandom.uniform(-90, 90);//uniform用于生成随机数
 			double y = StdRandom.uniform(-90, 90);
 
 			/* Clears the screen. */

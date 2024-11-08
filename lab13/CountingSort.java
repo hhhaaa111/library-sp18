@@ -7,8 +7,8 @@
 public class CountingSort {
     /**
      * Counting sort on the given int array. Returns a sorted version of the array.
-     * Does not touch original array (non-destructive method).
-     * DISCLAIMER: this method does not always work, find a case where it fails
+     * Does not touch original array (non-destructive method).新建一个array
+     * DISCLAIMER: this method does not always work, find a case where it fails//输入数字为负数
      *
      * @param arr int array that will be sorted
      * @return the sorted array
@@ -67,6 +67,35 @@ public class CountingSort {
      */
     public static int[] betterCountingSort(int[] arr) {
         // TODO make counting sort work with arrays containing negative numbers.
-        return null;
+        //first ,search the nums of kinds
+        int max = Integer.MIN_VALUE;
+        int min = Integer.MAX_VALUE;
+        for (int i : arr) {
+            max = max > i ? max : i;
+            min = min < i ? min : i;
+        }
+        int len = max - min + 1;
+        //测量每个种类的次数,i = -5, 对应的counts[i] = 0
+        int[] counts = new int[len];
+        for (int i : arr) {
+            counts[i-min] += 1;
+        }
+        //起始位计算，-5，0，0
+        int[] starts = new int[len];
+        int pos = 0;
+        for (int i = 0; i < starts.length; i += 1) {
+            starts[i] = pos;
+            pos += counts[i];
+        }
+        //counting sort,i 其实不是i,而是要+min,+负数，
+        int[] sorted = new int[arr.length];
+        int k = 0;
+        for (int j : arr) {
+            int item = j - min;
+            int place = starts[item];
+            sorted[place] = j;
+            starts[item] += 1;
+        }
+        return sorted;
     }
 }

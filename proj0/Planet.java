@@ -33,7 +33,7 @@ public class Planet{
       return r;
     }
     
-    static final double  G = 6.67e-11;
+    private static final double  G = 6.67e-11;//private漏加
     public double calcForceExertedBy(Planet p){
       double m1 = this.mass;
       double m2 = p.mass;

@@ -7,22 +7,22 @@ public class ArrayDeque<T> {
     }
 
     public void addFirst(T item) {
-        T[] a = (T[])new Object[size+1];
+        T[] a = (T[]) new Object[size + 1];
         a[0] = item;
-        System.arraycopy(items,1,a,1,size);
+        System.arraycopy(items, 1, a, 1, size);
         items = a;
         size++;
     }
 
-    public void resize(int size) {
-        T[] a = (T[]) new Object[size*2];
-        System.arraycopy(items,0,a,0,size);
+    public void resize(int newsize) {
+        T[] a = (T[]) new Object[newsize * 2];
+        System.arraycopy(items, 0, a, 0, newsize);
         items = a;
     }
 
     public void addLast(T item) {
-       if(size == items.length) {
-          resize(size);
+       if (size == items.length) {
+           resize(size * 2);
        }
        items[size] = item;
        size++;
@@ -37,7 +37,7 @@ public class ArrayDeque<T> {
     }
 
     public void printDeque() {
-       for(int i = 0; i < size; i++) {
+       for (int i = 0; i < size; i++) {
            System.out.print(items[i]+" ");
        }
     }

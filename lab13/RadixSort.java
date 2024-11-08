@@ -17,18 +17,58 @@ public class RadixSort {
      */
     public static String[] sort(String[] asciis) {
         // TODO: Implement LSD Sort
-        return null;
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < asciis.length; i++) {
+            max = Math.max(max, asciis[i].length());
+        }
+        int index = 0;
+        while(index <= max) {
+            sortHelperLSD(asciis, index);
+            index += 1;
+        }
+        return asciis;
     }
 
     /**
      * LSD helper method that performs a destructive counting sort the array of
-     * Strings based off characters at a specific index.
-     * @param asciis Input array of Strings
+     * Strings based off characters at a specific index.破坏性的counting sort方法，对于array，string要转化为数字，变成index
+     * @param asciis Input array of Strings输入array of string
      * @param index The position to sort the Strings on.
      */
     private static void sortHelperLSD(String[] asciis, int index) {
         // Optional LSD helper method for required LSD radix sort
-        return;
+        //按照末尾数分类，再按照末尾数排序,index = 0,从后往前第0个
+        int[] counts = new int[256];
+        for (int i = 0; i < asciis.length; i++) {
+            if(asciis[i].length() - 1 - index >= 0 ){
+            int asc = (int) asciis[i].charAt(asciis[i].length() - 1 - index);
+            counts[asc]++;
+           }else{
+                counts[0]++;
+            }
+        }
+        int[] starts = new int[256];
+        int pos = 0;
+        for (int i = 0; i < counts.length; i++) {
+            starts[i] = pos;
+            pos += counts[i];
+        }
+        String[] sorted = new String[asciis.length];
+        for (int i = 0; i < asciis.length; i++) {
+            if(asciis[i].length() - 1 - index >= 0 ){
+            int num = (int) asciis[i].charAt(asciis[i].length() - 1 - index);
+            String item = asciis[i];
+            int place = starts[num];
+            sorted[place] = item;
+            starts[num] += 1;
+            }else{
+                String item = asciis[i];
+                int place = starts[0];
+                sorted[place] = item;
+                starts[0] += 1;
+            }
+        }
+        System.arraycopy(sorted, 0, asciis, 0, asciis.length);
     }
 
     /**

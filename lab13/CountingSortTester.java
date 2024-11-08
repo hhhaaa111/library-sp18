@@ -1,6 +1,8 @@
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 public class CountingSortTester {
 
     /**
@@ -55,6 +57,10 @@ public class CountingSortTester {
 
 
     public static void main(String[] args) {
-        jh61b.junit.TestRunner.runTests(CountingSortTester.class);
+        //jh61b.junit.TestRunner.runTests(CountingSortTester.class);
+        int[] someNegative = {9, 5, -4, 2, 1, -2, 5, 3, 0, -2, 3, 1, 1};
+        CountingSort countingSort = new CountingSort();
+        int[] sorted = CountingSort.betterCountingSort(someNegative);
+        System.out.println(Arrays.toString(sorted));
     }
 }

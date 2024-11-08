@@ -45,7 +45,7 @@ public class DebugExercise2 {
         if (a.length != b.length) {
             System.out.println("ERROR! Arrays don't match");
             return null;
-        }
+        }//ok
         int[] returnArray = new int[a.length];
         for (int i = 0; i < a.length; i += 1) {
             int biggerValue = max(a[i], b[i]);
